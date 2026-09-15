@@ -25,6 +25,7 @@ export function SchedulePage() {
             value={total}
             onChange={(e) => patchSettings({ dailyMinutes: Number(e.target.value) || 60 })}
             className="field mt-1 w-28"
+            inputMode="numeric"
           />
           <div className="mt-4 rounded-2xl bg-parchment/80 p-4">
             <div className="mb-2 flex justify-between text-sm">
@@ -42,6 +43,7 @@ export function SchedulePage() {
                 <input
                   type="number"
                   className="field ms-2 inline-block w-20 py-1.5"
+                  inputMode="numeric"
                   value={state.settings.studyMinutes}
                   onChange={(e) => {
                     const studyMinutes = Number(e.target.value) || 0;

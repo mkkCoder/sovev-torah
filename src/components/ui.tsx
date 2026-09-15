@@ -63,7 +63,7 @@ export function Switch({
       aria-checked={checked}
       aria-label={label}
       onClick={() => onChange(!checked)}
-      className="flex min-h-11 items-center gap-2 rounded-full border border-mist bg-card px-2.5 py-1.5 text-xs text-ink-soft"
+      className="flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-mist bg-card px-2.5 py-1.5 text-xs text-ink-soft"
     >
       {showLabel ? <span className="hidden sm:inline">{label}</span> : null}
       <span className="toggle" data-on={checked ? "true" : "false"} />

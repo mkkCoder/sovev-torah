@@ -8,7 +8,7 @@ export function ProfilePage() {
 
   return (
     <PageShell title="פרופיל" kicker="הגדרות מקומיות">
-      <section className="paper max-w-lg rounded-[1.5rem] p-6">
+      <section className="paper max-w-lg rounded-[1.5rem] p-4 sm:p-6">
         <label className="text-sm text-ink-soft">שם לתצוגה</label>
         <input
           className="field mt-1"

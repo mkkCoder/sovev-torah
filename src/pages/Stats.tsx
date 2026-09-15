@@ -49,7 +49,7 @@ export function StatsPage() {
         <div className="mt-4 space-y-4">
           {byCat.map((row) => (
             <div key={row.cat}>
-              <div className="flex justify-between text-sm">
+              <div className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-sm">
                 <span>{CATEGORY_LABEL[row.cat]}</span>
                 <span className="text-ink-soft">
                   {row.n} כרטיסיות · {row.due} לחזרה

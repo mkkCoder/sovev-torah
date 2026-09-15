@@ -20,11 +20,11 @@ export function Header({ settings }: { settings: Settings }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-mist/70 bg-parchment/90 pt-[env(safe-area-inset-top)] shadow-[0_8px_24px_-20px_rgba(36,28,18,0.55)] backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-3 py-2 sm:flex-nowrap sm:gap-4 sm:px-4 sm:py-3">
+    <header className="sticky top-0 z-40 border-b border-mist/70 bg-parchment/90 pt-[env(safe-area-inset-top,0px)] shadow-[0_8px_24px_-20px_rgba(36,28,18,0.55)] backdrop-blur-md">
+      <div className="app-gutter mx-auto flex max-w-6xl flex-wrap items-center gap-2 py-2 sm:flex-nowrap sm:gap-4 sm:py-3 max-[500px]:landscape:py-1.5">
         <Link to="/" className="flex shrink-0 items-center gap-2 rounded-xl pe-1" aria-label="סובב תורה — דף הבית">
           <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
-          <div className="hidden leading-tight sm:block">
+          <div className="hidden leading-tight min-[760px]:block">
             <div className="font-display text-[1.35rem] font-semibold text-ink">סובב תורה</div>
             <div className="text-[11px] tracking-wide text-ink-soft">לימוד · חזרה · נצח</div>
           </div>
@@ -36,17 +36,19 @@ export function Header({ settings }: { settings: Settings }) {
           className="relative order-last min-w-0 w-full basis-full sm:order-none sm:flex-1 sm:basis-auto"
           onSubmit={onSearch}
         >
-          <SearchIcon className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-ink-soft" size={18} />
+          <SearchIcon className="pointer-events-none absolute top-1/2 start-3.5 -translate-y-1/2 text-ink-soft" size={18} />
           <input
             name="q"
             defaultValue={q}
             key={q}
             placeholder="חפש כרטיסייה, מושג או ספר..."
-            className="field min-h-11 w-full rounded-full py-2.5 pr-11 pl-4 text-base shadow-none placeholder:text-ink-soft/65"
+            className="field min-h-11 w-full rounded-full py-2.5 ps-11 pe-4 text-base shadow-none placeholder:text-ink-soft/65"
             aria-label="חיפוש כרטיסייה, מושג או ספר"
             enterKeyHint="search"
             autoCapitalize="off"
             autoCorrect="off"
+            autoComplete="off"
+            spellCheck={false}
           />
         </form>
 
@@ -64,7 +66,7 @@ export function Header({ settings }: { settings: Settings }) {
             <span className="grid h-8 w-8 place-items-center rounded-full bg-burgundy text-sm font-semibold text-parchment">
               {initial}
             </span>
-            <span className="hidden max-w-24 truncate sm:inline">{settings.profileName}</span>
+            <span className="hidden max-w-24 truncate min-[820px]:inline">{settings.profileName}</span>
           </Link>
         </div>
       </div>

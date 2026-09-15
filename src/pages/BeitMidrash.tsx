@@ -102,8 +102,8 @@ export function BeitMidrashPage() {
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            rows={12}
-            className="field mt-3 hebrew-body"
+            rows={8}
+            className="field mt-3 max-h-[min(28rem,46svh)] min-h-40 hebrew-body"
             placeholder="הדביקו טקסט או Markdown של הסוגיא / הפרק..."
           />
           <label className="mt-3 block cursor-pointer rounded-2xl border border-dashed border-gold/55 bg-gold/5 px-4 py-4 text-sm transition hover:bg-gold/10">
@@ -111,7 +111,7 @@ export function BeitMidrashPage() {
             <span className="mt-0.5 block text-ink-soft">OCR מדומה / Vision אם זמין — ואז ערכו את הטקסט</span>
             <input
               type="file"
-              accept="image/*"
+              accept="image/*,image/heic,image/heif"
               className="hidden"
               onChange={(e) => {
                 const file = e.target.files?.[0];
@@ -199,7 +199,7 @@ export function BeitMidrashPage() {
                   {!ARCHETYPES.includes(d.archetype) ? " ?" : ""}
                 </div>
                 <textarea
-                  className="mt-2 w-full resize-y bg-transparent text-sm font-semibold outline-none"
+                  className="mt-2 w-full resize-y bg-transparent text-base font-semibold outline-none"
                   value={d.question}
                   onChange={(e) =>
                     setDrafts((arr) =>
@@ -208,7 +208,7 @@ export function BeitMidrashPage() {
                   }
                 />
                 <textarea
-                  className="mt-1 w-full resize-y bg-transparent text-sm text-ink-soft outline-none"
+                  className="mt-1 w-full resize-y bg-transparent text-base text-ink-soft outline-none"
                   value={d.answer}
                   onChange={(e) =>
                     setDrafts((arr) =>

@@ -14,12 +14,12 @@ export function Onboarding() {
   const reviewPct = 100 - studyPct;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/45 p-3 backdrop-blur-[6px] sm:items-center sm:p-4">
+    <div className="onboard-scrim">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="onboard-title"
-        className="paper max-h-[min(92dvh,100%)] w-full max-w-lg overflow-y-auto rounded-[1.7rem] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-8"
+        className="paper max-h-[min(92dvh,100%)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-[1.7rem] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-8"
       >
         <div className="mb-4 flex items-center gap-3">
           <LogoMark className="h-12 w-12" />
@@ -32,13 +32,13 @@ export function Onboarding() {
           נחלק אוטומטית כ־80% לגוף הטקסט וכ־20% לחזרה על כרטיסיות. אפשר לערוך אחר כך בלו״ז.
         </p>
 
-        <div className="mt-6 grid grid-cols-3 gap-2">
+        <div className="mt-6 grid grid-cols-3 gap-2 max-[340px]:grid-cols-1">
           {PRESETS.map((m) => (
             <button
               key={m}
               type="button"
               onClick={() => setPicked(m)}
-              className={`rounded-2xl border px-3 py-4 text-lg font-semibold transition ${
+              className={`min-h-14 rounded-2xl border px-2 py-4 text-lg font-semibold transition max-[360px]:text-base ${
                 picked === m
                   ? "border-gold bg-gold/12 text-ink shadow-[0_0_0_3px_rgba(154,111,40,0.12)]"
                   : "border-mist bg-parchment text-ink-soft hover:border-gold/50"
@@ -70,6 +70,7 @@ export function Onboarding() {
               setCustom(e.target.value);
             }}
             className="mt-1 w-24 border-b border-gold bg-transparent text-xl outline-none max-[380px]:text-base"
+            inputMode="numeric"
           />
           <span className="ms-2 text-ink-soft">דקות</span>
         </button>

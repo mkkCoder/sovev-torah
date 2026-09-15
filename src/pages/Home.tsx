@@ -24,14 +24,14 @@ export function HomePage() {
   const studyPct = Math.round((state.settings.studyMinutes / state.settings.dailyMinutes) * 100);
 
   return (
-    <div className="mx-auto max-w-6xl px-3 py-5 pb-16 sm:px-4 sm:py-9">
+    <div className="app-gutter app-page mx-auto max-w-6xl py-5 pb-16 sm:py-9">
       <div className="mb-6 flex flex-col gap-4 sm:mb-7 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div className="min-w-0">
           <p className="text-sm font-medium text-gold">
             שלום, {state.settings.profileName} · יום {DAY_NAMES[day]}
           </p>
           <h1 className="font-display mt-1 text-[1.7rem] leading-tight sm:text-[2.45rem]">השולחן ערוך ליום זה</h1>
-          <p className="mt-2 max-w-xl text-ink-soft">{assignment?.note}</p>
+          <p className="mt-2 max-w-xl break-words text-ink-soft">{assignment?.note}</p>
         </div>
         <div className="w-full rounded-2xl border border-mist/80 bg-card/80 px-4 py-3 sm:w-64 sm:shrink-0">
           <div className="flex justify-between text-xs text-ink-soft">

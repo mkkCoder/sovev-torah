@@ -24,7 +24,7 @@ export function DailyStudyPanel() {
             <p className="mt-1 text-ink-soft">{current.title}</p>
           </div>
           <div
-            className={`chip ${
+            className={`chip max-w-full ${
               done ? "bg-olive/12 text-olive" : "bg-burgundy/10 text-burgundy"
             }`}
           >

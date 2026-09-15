@@ -86,7 +86,7 @@ export function FlashcardPlayer({
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className="paper w-full min-h-[min(240px,52dvh)] rounded-[1.5rem] p-4 text-right transition hover:border-gold/40 sm:min-h-[240px] sm:p-7"
+        className="paper w-full min-h-[min(220px,48dvh)] rounded-[1.5rem] p-4 text-right transition hover:border-gold/40 sm:min-h-[240px] sm:p-7 max-[500px]:landscape:min-h-[min(160px,46dvh)] max-[500px]:landscape:p-3"
       >
         <div className="chip bg-gold/12 text-gold">{ARCHETYPE_LABEL[card.archetype]}</div>
         <div className="font-display mt-4 text-[1.3rem] leading-snug break-words text-ink sm:text-[1.75rem]">

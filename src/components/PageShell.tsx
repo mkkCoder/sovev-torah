@@ -11,7 +11,7 @@ export function PageShell({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-6xl px-3 py-5 pb-16 sm:px-4 sm:py-9">
+    <div className="app-gutter app-page mx-auto max-w-6xl py-5 pb-16 sm:py-9">
       <Link
         to="/"
         className="inline-flex items-center gap-1 text-sm text-ink-soft transition hover:text-burgundy"

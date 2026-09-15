@@ -70,8 +70,8 @@ export function QuizPage() {
         </div>
       ) : (
         <div>
-          <div className="mb-2 flex items-center justify-between text-sm text-ink-soft">
-            <span>
+          <div className="mb-2 flex items-center justify-between gap-3 text-sm text-ink-soft">
+            <span className="min-w-0 truncate">
               {CATEGORY_LABEL[card.category]} · {ARCHETYPE_LABEL[card.archetype]}
             </span>
             <span dir="ltr" className="tabular-nums">
@@ -84,7 +84,7 @@ export function QuizPage() {
           <button
             type="button"
             onClick={() => setShow(true)}
-            className="paper w-full min-h-[min(200px,50dvh)] rounded-[1.5rem] p-4 text-right sm:p-6"
+            className="paper w-full min-h-[min(200px,46dvh)] rounded-[1.5rem] p-4 text-right sm:p-6 max-[500px]:landscape:min-h-[min(150px,42dvh)]"
           >
             <div className="font-display text-[1.3rem] leading-snug break-words sm:text-[1.55rem]">{card.question}</div>
             {show ? (
