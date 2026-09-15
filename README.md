@@ -45,6 +45,8 @@ npx wrangler deploy
 
 This publishes a `*.workers.dev` Worker that serves the SPA (static assets, no billable navigation hits for the React routes) plus `/api/*` for AI helpers. The free Workers plan is enough for this app.
 
+`wrangler.jsonc` is pinned to Cloudflare account `c4c4fe47b2f9acc974acc7e14e814f62`. After login, confirm with `npx wrangler whoami`.
+
 Config lives in [`wrangler.jsonc`](./wrangler.jsonc):
 
 - `assets.not_found_handling = "single-page-application"`
