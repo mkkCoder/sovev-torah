@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "sovev-torah",
+  "account_id": "c4c4fe47b2f9acc974acc7e14e814f62",
   "compatibility_date": "2026-09-15",
   "main": "./worker/index.ts",
   "assets": {
