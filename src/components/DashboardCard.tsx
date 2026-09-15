@@ -26,7 +26,7 @@ export function DashboardCard({
     >
       <div className="flex items-start justify-between gap-3">
         <div className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${tone}`}>{icon}</div>
-        <ChevronIcon className="mt-1 text-mist" size={18} />
+        <ChevronIcon className="mt-1 text-ink-soft/45" size={18} />
       </div>
       <div>
         <h2 className="font-display text-[1.65rem] leading-tight text-ink">{title}</h2>

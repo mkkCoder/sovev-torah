@@ -13,8 +13,7 @@ export function DailyStudyPanel() {
   const done = current.studyCompleted;
 
   return (
-    <section className="paper overflow-hidden rounded-[1.6rem]">
-      <div className="h-1.5 bg-gradient-to-l from-gold via-gold-light to-olive" />
+    <section className="paper overflow-hidden rounded-[1.6rem] border-s-4 border-gold">
       <div className="p-5 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>

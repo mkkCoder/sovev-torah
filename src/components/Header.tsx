@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LogoMark, SearchIcon, UserIcon } from "./Icons";
+import { LogoMark, SearchIcon } from "./Icons";
 import { patchSettings } from "../lib/store";
 import type { Settings } from "@shared/types";
 import { Switch } from "./ui";
@@ -59,7 +59,6 @@ export function Header({ settings }: { settings: Settings }) {
               {initial}
             </span>
             <span className="hidden max-w-24 truncate sm:inline">{settings.profileName}</span>
-            <UserIcon size={16} className="hidden text-ink-soft md:inline" />
           </Link>
         </div>
       </div>
