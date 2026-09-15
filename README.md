@@ -29,10 +29,13 @@ npm run preview   # Workers runtime locally
 
 ## Deploy (Cloudflare Workers, free)
 
-One command after login:
+Production is **`main`**. Deploy only from that branch.
 
 ```bash
-npx wrangler login          # once, in a browser
+git checkout main
+git pull
+npx wrangler login          # brother's Cloudflare email, not GitHub
+npx wrangler whoami         # confirm his account
 npm run deploy              # vite build && wrangler deploy
 ```
 
@@ -43,9 +46,7 @@ npm run build
 npx wrangler deploy
 ```
 
-This publishes a `*.workers.dev` Worker that serves the SPA (static assets, no billable navigation hits for the React routes) plus `/api/*` for AI helpers. The free Workers plan is enough for this app.
-
-After `npx wrangler login`, run `npx wrangler whoami` and pick the Cloudflare account you want (the one tied to GitHub, if you use Git deploys).
+This publishes a `*.workers.dev` Worker that serves the SPA (static assets, no billable navigation hits for the React routes) plus `/api/*` for AI helpers. The free Workers plan is enough for this app. GitHub can be a different person than the Cloudflare account.
 
 Config lives in [`wrangler.jsonc`](./wrangler.jsonc):
 
