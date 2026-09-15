@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "sovev-torah",
+  "compatibility_date": "2026-09-15",
+  "main": "./worker/index.ts",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // Workers AI — free/limited Neurons quota (no paid API required).
+  // Comment out this block if the account has not enabled Workers AI;
+  // the app still generates all 4 card archetypes with the heuristic engine.
+  "ai": {
+    "binding": "AI"
+  }
+}

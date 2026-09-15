@@ -1,0 +1,75 @@
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { FormEvent } from "react";
+import { LogoMark, SearchIcon } from "./Icons";
+import { patchSettings } from "../lib/store";
+import type { Settings } from "@shared/types";
+import { Switch } from "./ui";
+
+export function Header({ settings }: { settings: Settings }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const q = params.get("q") ?? "";
+  const initial = settings.profileName.trim().slice(0, 1) || "ל";
+
+  function onSearch(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const next = String(fd.get("q") ?? "").trim();
+    navigate(next ? `/search?q=${encodeURIComponent(next)}` : "/");
+  }
+
+  return (
+    <header className="sticky top-0 z-40 border-b border-mist/70 bg-parchment/90 pt-[env(safe-area-inset-top,0px)] shadow-[0_8px_24px_-20px_rgba(36,28,18,0.55)] backdrop-blur-md">
+      <div className="app-gutter mx-auto flex max-w-6xl flex-wrap items-center gap-2 py-2 sm:flex-nowrap sm:gap-4 sm:py-3 max-[500px]:landscape:py-1.5">
+        <Link to="/" className="flex shrink-0 items-center gap-2 rounded-xl pe-1" aria-label="סובב תורה — דף הבית">
+          <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
+          <div className="hidden leading-tight min-[760px]:block">
+            <div className="font-display text-[1.35rem] font-semibold text-ink">סובב תורה</div>
+            <div className="text-[11px] tracking-wide text-ink-soft">לימוד · חזרה · נצח</div>
+          </div>
+        </Link>
+
+        <form
+          role="search"
+          action="/search"
+          className="relative order-last min-w-0 w-full basis-full sm:order-none sm:flex-1 sm:basis-auto"
+          onSubmit={onSearch}
+        >
+          <SearchIcon className="pointer-events-none absolute top-1/2 start-3.5 -translate-y-1/2 text-ink-soft" size={18} />
+          <input
+            name="q"
+            defaultValue={q}
+            key={q}
+            placeholder="חפש כרטיסייה, מושג או ספר..."
+            className="field min-h-11 w-full rounded-full py-2.5 ps-11 pe-4 text-base shadow-none placeholder:text-ink-soft/65"
+            aria-label="חיפוש כרטיסייה, מושג או ספר"
+            enterKeyHint="search"
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoComplete="off"
+            spellCheck={false}
+          />
+        </form>
+
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:ms-0 sm:gap-2">
+          <Switch
+            label="מנהל"
+            checked={settings.isAdmin}
+            onChange={(next) => patchSettings({ isAdmin: next })}
+          />
+          <Link
+            to="/profile"
+            className="flex min-h-11 items-center gap-2 rounded-full border border-mist bg-card py-1 ps-1 pe-1.5 text-sm text-ink transition hover:border-gold sm:pe-2.5"
+            aria-label="פרופיל"
+          >
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-burgundy text-sm font-semibold text-parchment">
+              {initial}
+            </span>
+            <span className="hidden max-w-24 truncate min-[820px]:inline">{settings.profileName}</span>
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
