@@ -24,19 +24,19 @@ export function DailyReviewPage() {
 
   return (
     <PageShell title="שינון יומי" kicker="חזרה במרווחים בתוך מכסת הזמן">
-      <div className="mb-4 flex flex-wrap gap-3 text-sm">
-        <span className="rounded-full bg-olive/15 px-3 py-1">
+      <div className="mb-5 flex flex-wrap gap-2">
+        <span className="chip bg-olive/12 text-olive">
           {session.length + overflow.length} ממתינים לחזרה
         </span>
-        <span className="rounded-full bg-gold/15 px-3 py-1">{news.length} כרטיסיות חדשות</span>
-        <span className="rounded-full bg-parchment-deep px-3 py-1">
+        <span className="chip bg-gold/15 text-gold">{news.length} כרטיסיות חדשות</span>
+        <span className="chip">
           מכסה ≈ {cap} כרטיסיות ל־{state.settings.reviewMinutes} דק׳
         </span>
       </div>
 
       {overflow.length > 0 && !includeOverflow ? (
-        <div className="mb-4 rounded-2xl border border-burgundy/30 bg-burgundy/8 p-4">
-          <p className="font-semibold">
+        <div className="mb-4 rounded-[1.3rem] border border-burgundy/25 bg-burgundy/[0.07] p-4">
+          <p className="font-semibold leading-snug">
             ישנן חזרות נוספות הממתינות בתור — האם לדחות למחר או להמשיך?
           </p>
           <p className="mt-1 text-sm text-ink-soft">
@@ -45,7 +45,7 @@ export function DailyReviewPage() {
           <div className="mt-3 flex flex-wrap gap-2">
             <button
               type="button"
-              className="rounded-xl bg-burgundy px-4 py-2 text-parchment"
+              className="btn btn-primary"
               onClick={() => {
                 deferOverflow(overflow.map((c) => c.id));
                 setDeferredMsg("יתר החזרות נדחו למחר.");
@@ -53,11 +53,7 @@ export function DailyReviewPage() {
             >
               לדחות למחר
             </button>
-            <button
-              type="button"
-              className="rounded-xl border border-mist bg-card px-4 py-2"
-              onClick={() => setIncludeOverflow(true)}
-            >
+            <button type="button" className="btn btn-secondary" onClick={() => setIncludeOverflow(true)}>
               להמשיך מעבר למכסה
             </button>
           </div>
@@ -66,8 +62,8 @@ export function DailyReviewPage() {
       ) : null}
 
       {lockedToday.length > 0 ? (
-        <div className="mb-4 flex items-start gap-2 rounded-2xl bg-parchment-deep/70 p-3 text-sm">
-          <LockIcon size={18} className="mt-0.5 shrink-0" />
+        <div className="mb-4 flex items-start gap-2 rounded-2xl bg-parchment-deep/80 p-3.5 text-sm">
+          <LockIcon size={18} className="mt-0.5 shrink-0 text-burgundy" />
           <p>
             {lockedToday.length} כרטיסיות פרק נעולות עד שתסמנו «סיימתי את הלימוד היומי» בלו״ז או בדף הבית.
           </p>

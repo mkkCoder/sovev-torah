@@ -1,41 +1,42 @@
 import { patchSettings, resetToSeed, adminUnlockAll } from "../lib/store";
 import { useAppState } from "../lib/useAppState";
 import { PageShell } from "../components/PageShell";
+import { Switch } from "../components/ui";
 
 export function ProfilePage() {
   const state = useAppState();
 
   return (
     <PageShell title="פרופיל" kicker="הגדרות מקומיות">
-      <section className="paper max-w-lg rounded-3xl p-5">
+      <section className="paper max-w-lg rounded-[1.5rem] p-6">
         <label className="text-sm text-ink-soft">שם לתצוגה</label>
         <input
-          className="mt-1 w-full rounded-xl border border-mist bg-parchment px-3 py-2"
+          className="field mt-1"
           value={state.settings.profileName}
           onChange={(e) => patchSettings({ profileName: e.target.value })}
         />
 
-        <label className="mt-4 flex items-center gap-2 text-sm">
-          <input
-            type="checkbox"
+        <div className="mt-5 flex items-center justify-between gap-3 rounded-2xl bg-parchment/80 px-3 py-3">
+          <div>
+            <p className="text-sm font-medium">מצב מנהל</p>
+            <p className="text-xs text-ink-soft">איפוס, פתיחת נעילות, עריכה חופשית</p>
+          </div>
+          <Switch
+            label="מצב מנהל"
+            showLabel={false}
             checked={state.settings.isAdmin}
-            onChange={(e) => patchSettings({ isAdmin: e.target.checked })}
+            onChange={(next) => patchSettings({ isAdmin: next })}
           />
-          מצב מנהל — איפוס, פתיחת נעילות, עריכה חופשית
-        </label>
+        </div>
 
         {state.settings.isAdmin ? (
           <div className="mt-4 space-y-2 rounded-2xl bg-parchment p-4">
-            <button
-              type="button"
-              className="w-full rounded-xl border border-mist bg-card py-2"
-              onClick={() => adminUnlockAll()}
-            >
+            <button type="button" className="btn btn-secondary w-full" onClick={() => adminUnlockAll()}>
               פתיחת כל הכרטיסיות הנעולות
             </button>
             <button
               type="button"
-              className="w-full rounded-xl border border-burgundy/40 py-2 text-burgundy"
+              className="btn w-full border border-burgundy/35 text-burgundy"
               onClick={() => {
                 if (confirm("לאפס את כל הנתונים לזרע ההדגמה?")) resetToSeed();
               }}
@@ -45,7 +46,7 @@ export function ProfilePage() {
           </div>
         ) : null}
 
-        <p className="mt-4 text-sm text-ink-soft">
+        <p className="mt-5 text-sm text-ink-soft">
           הגרסה 2.1 · הנתונים במכשיר זה בלבד. לפריסה ל־Cloudflare Workers ראו README.
         </p>
       </section>

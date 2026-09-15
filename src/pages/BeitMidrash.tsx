@@ -90,24 +90,25 @@ export function BeitMidrashPage() {
 
   return (
     <PageShell title="בית מדרש AI" kicker="הוספת חומר · ארבעה ארכיטיפים · בלי API בתשלום">
-      <p className="mb-4 text-sm text-ink-soft">
+      <p className="mb-5 rounded-2xl bg-parchment-deep/50 px-4 py-3 text-sm leading-relaxed text-ink-soft">
         {ai?.ai
           ? "זוהה binding של Workers AI. היצירה תנסה את המודל החינמי, ועם כשל תעבור למחולל ההיוריסטי."
           : "אין קישור Workers AI בסביבה זו. המחולל ההיוריסטי ייצר את כל ארבעת הארכיטיפים מתוך הטקסט."}
       </p>
 
       <div className="grid gap-4 lg:grid-cols-2">
-        <section className="paper rounded-3xl p-5">
+        <section className="paper rounded-[1.5rem] p-5">
           <h2 className="font-display text-xl">מקור</h2>
           <textarea
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows={12}
-            className="mt-3 w-full rounded-2xl border border-mist bg-parchment p-3 hebrew-body"
+            className="field mt-3 hebrew-body"
             placeholder="הדביקו טקסט או Markdown של הסוגיא / הפרק..."
           />
-          <label className="mt-3 block cursor-pointer rounded-2xl border border-dashed border-gold/50 bg-gold/5 px-4 py-3 text-sm">
-            העלאת תמונה (OCR מדומה / Vision אם זמין)
+          <label className="mt-3 block cursor-pointer rounded-2xl border border-dashed border-gold/55 bg-gold/5 px-4 py-4 text-sm transition hover:bg-gold/10">
+            <span className="font-medium">העלאת תמונה</span>
+            <span className="mt-0.5 block text-ink-soft">OCR מדומה / Vision אם זמין — ואז ערכו את הטקסט</span>
             <input
               type="file"
               accept="image/*"
@@ -138,18 +139,18 @@ export function BeitMidrashPage() {
             type="button"
             disabled={busy || text.trim().length < 20}
             onClick={() => void onGenerate()}
-            className="mt-4 w-full rounded-2xl bg-burgundy py-3 text-parchment disabled:opacity-40"
+            className="btn btn-primary mt-4 w-full py-3"
           >
             {busy ? "יוצרים..." : "יצירת כרטיסיות"}
           </button>
         </section>
 
-        <section className="paper rounded-3xl p-5">
+        <section className="paper rounded-[1.5rem] p-5">
           <h2 className="font-display text-xl">סיווג — חובה לפני שמירה</h2>
           <p className="text-sm text-ink-soft">כל סט חייב קטגוריה + ספר / תג־משנה.</p>
           <label className="mt-3 block text-sm">קטגוריה</label>
           <select
-            className="mt-1 w-full rounded-xl border border-mist bg-card px-3 py-2"
+            className="field mt-1"
             value={category}
             onChange={(e) => setCategory(e.target.value as Category | "")}
           >
@@ -161,7 +162,7 @@ export function BeitMidrashPage() {
           <label className="mt-3 block text-sm">ספר</label>
           <input
             list="sefer-list"
-            className="mt-1 w-full rounded-xl border border-mist bg-card px-3 py-2"
+            className="field mt-1"
             value={sefer}
             onChange={(e) => setSefer(e.target.value)}
             placeholder='למשל: נצח ישראל / ברכות / הלכות תלמוד תורה'
@@ -173,7 +174,7 @@ export function BeitMidrashPage() {
           </datalist>
           <label className="mt-3 block text-sm">תג־משנה / פרק</label>
           <input
-            className="mt-1 w-full rounded-xl border border-mist bg-card px-3 py-2"
+            className="field mt-1"
             value={subTag}
             onChange={(e) => setSubTag(e.target.value)}
             placeholder="פרק, דף, סימן..."
@@ -185,15 +186,20 @@ export function BeitMidrashPage() {
             </p>
           ) : null}
 
-          <div className="mt-4 max-h-[360px] space-y-3 overflow-auto">
-            {drafts.map((d, i) => (
-              <article key={i} className="rounded-2xl border border-mist p-3">
-                <div className="text-xs text-gold">
+          <div className="mt-4 max-h-[360px] space-y-3 overflow-auto pe-1">
+            {drafts.length === 0 ? (
+              <p className="rounded-2xl bg-parchment/80 px-4 py-8 text-center text-sm text-ink-soft">
+                הכרטיסיות יופיעו כאן לאחר היצירה. ניתן לערוך שאלה ותשובה לפני השמירה.
+              </p>
+            ) : (
+              drafts.map((d, i) => (
+              <article key={i} className="rounded-2xl border border-mist bg-parchment/40 p-3">
+                <div className="chip bg-gold/12 text-[11px] text-gold">
                   {ARCHETYPE_LABEL[d.archetype]}
                   {!ARCHETYPES.includes(d.archetype) ? " ?" : ""}
                 </div>
                 <textarea
-                  className="mt-1 w-full bg-transparent text-sm font-semibold outline-none"
+                  className="mt-2 w-full resize-y bg-transparent text-sm font-semibold outline-none"
                   value={d.question}
                   onChange={(e) =>
                     setDrafts((arr) =>
@@ -202,7 +208,7 @@ export function BeitMidrashPage() {
                   }
                 />
                 <textarea
-                  className="mt-1 w-full bg-transparent text-sm text-ink-soft outline-none"
+                  className="mt-1 w-full resize-y bg-transparent text-sm text-ink-soft outline-none"
                   value={d.answer}
                   onChange={(e) =>
                     setDrafts((arr) =>
@@ -211,14 +217,15 @@ export function BeitMidrashPage() {
                   }
                 />
               </article>
-            ))}
+              ))
+            )}
           </div>
 
           <button
             type="button"
             disabled={!canSave}
             onClick={save}
-            className="mt-4 w-full rounded-2xl border border-olive bg-olive/15 py-3 disabled:opacity-40"
+            className="btn btn-olive mt-4 w-full py-3"
           >
             שמירת הסט
           </button>

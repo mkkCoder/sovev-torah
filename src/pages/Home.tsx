@@ -21,23 +21,39 @@ export function HomePage() {
   const dueCount = session.length + overflow.length;
   const day = new Date().getDay();
   const assignment = state.weekly.find((w) => w.day === day);
+  const studyPct = Math.round((state.settings.studyMinutes / state.settings.dailyMinutes) * 100);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
-      <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+    <div className="mx-auto max-w-6xl px-4 py-6 pb-16 sm:py-9">
+      <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm text-gold">יום {DAY_NAMES[day]} · {assignment?.note}</p>
-          <h1 className="font-display text-3xl sm:text-4xl">השולחן ערוך ליום זה</h1>
-          <p className="mt-1 text-ink-soft">
-            {state.settings.dailyMinutes} דק׳ · {state.settings.studyMinutes} לימוד ·{" "}
-            {state.settings.reviewMinutes} חזרה
+          <p className="text-sm font-medium text-gold">
+            שלום, {state.settings.profileName} · יום {DAY_NAMES[day]}
           </p>
+          <h1 className="font-display mt-1 text-3xl leading-tight sm:text-[2.45rem]">השולחן ערוך ליום זה</h1>
+          <p className="mt-2 max-w-xl text-ink-soft">{assignment?.note}</p>
+        </div>
+        <div className="min-w-[220px] rounded-2xl border border-mist/80 bg-card/80 px-4 py-3">
+          <div className="flex justify-between text-xs text-ink-soft">
+            <span>{state.settings.dailyMinutes} דק׳ היום</span>
+            <span>{studyPct}/{100 - studyPct}</span>
+          </div>
+          <div className="mt-2 flex h-2 overflow-hidden rounded-full bg-mist">
+            <div className="bg-olive" style={{ width: `${studyPct}%` }} />
+            <div className="bg-gold" style={{ width: `${100 - studyPct}%` }} />
+          </div>
+          <div className="mt-2 flex justify-between text-sm">
+            <span>{state.settings.studyMinutes} לימוד</span>
+            <span>{state.settings.reviewMinutes} חזרה</span>
+          </div>
         </div>
       </div>
 
-      <div className="mb-6">
+      <div className="mb-7">
         <DailyStudyPanel />
       </div>
+
+      <div className="ornament mb-5 text-[11px]">ששת השערים</div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <DashboardCard
@@ -53,6 +69,7 @@ export function HomePage() {
           subtitle={`${dueCount} ממתינים לחזרה | ${newCount} כרטיסיות חדשות`}
           icon={<RepeatIcon />}
           tone="bg-olive/15 text-olive"
+          accent={dueCount > 0}
         />
         <DashboardCard
           to="/bonus"

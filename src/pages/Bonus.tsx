@@ -13,7 +13,7 @@ export function BonusPage() {
 
   return (
     <PageShell title="כרטיסי בונוס" kicker="מעבר למכסת השינון היומי">
-      <p className="mb-4 text-ink-soft">
+      <p className="mb-5 max-w-2xl text-ink-soft">
         כרטיסיות אלה אינן נספרות במכסת 20% של היום. השתמשו בהן כשיש חיות, לא כשמעייפים.
       </p>
       <FlashcardPlayer cards={play} emptyLabel="אין כרטיסי בונוס זמינים כרגע. צרו בבית המדרש." />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { splitDailyTime } from "@shared/allocation";
 import { completeOnboarding } from "../lib/store";
+import { LogoMark } from "./Icons";
 
 const PRESETS = [60, 90, 120];
 
@@ -9,19 +10,25 @@ export function Onboarding() {
   const [picked, setPicked] = useState<number | "custom">(90);
   const minutes = picked === "custom" ? Number(custom) || 75 : picked;
   const split = splitDailyTime(minutes);
+  const studyPct = Math.round((split.studyMinutes / minutes) * 100);
+  const reviewPct = 100 - studyPct;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/40 p-4 sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/45 p-4 backdrop-blur-[6px] sm:items-center">
       <div
         role="dialog"
+        aria-modal="true"
         aria-labelledby="onboard-title"
-        className="paper w-full max-w-lg rounded-3xl p-6 sm:p-8"
+        className="paper w-full max-w-lg rounded-[1.7rem] p-6 sm:p-8"
       >
-        <p className="text-sm text-gold">ברוכים הבאים · סובב תורה 2.1</p>
-        <h1 id="onboard-title" className="font-display mt-1 text-3xl text-ink">
+        <div className="mb-4 flex items-center gap-3">
+          <LogoMark className="h-12 w-12" />
+          <p className="text-sm text-gold">ברוכים הבאים · סובב תורה 2.1</p>
+        </div>
+        <h1 id="onboard-title" className="font-display text-3xl leading-tight text-ink sm:text-[2.1rem]">
           מהו זמן הלימוד היומי שלך?
         </h1>
-        <p className="mt-2 text-ink-soft">
+        <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
           נחלק אוטומטית כ־80% לגוף הטקסט וכ־20% לחזרה על כרטיסיות. אפשר לערוך אחר כך בלו״ז.
         </p>
 
@@ -31,13 +38,13 @@ export function Onboarding() {
               key={m}
               type="button"
               onClick={() => setPicked(m)}
-              className={`rounded-2xl border px-3 py-4 text-lg font-semibold ${
+              className={`rounded-2xl border px-3 py-4 text-lg font-semibold transition ${
                 picked === m
-                  ? "border-gold bg-gold/10 text-ink"
-                  : "border-mist bg-parchment text-ink-soft"
+                  ? "border-gold bg-gold/12 text-ink shadow-[0_0_0_3px_rgba(154,111,40,0.12)]"
+                  : "border-mist bg-parchment text-ink-soft hover:border-gold/50"
               }`}
             >
-              {m}
+              <span dir="ltr">{m}</span>
               <div className="text-xs font-normal">דקות</div>
             </button>
           ))}
@@ -46,8 +53,10 @@ export function Onboarding() {
         <button
           type="button"
           onClick={() => setPicked("custom")}
-          className={`mt-3 w-full rounded-2xl border px-3 py-3 text-right ${
-            picked === "custom" ? "border-gold bg-gold/10" : "border-mist bg-parchment"
+          className={`mt-3 w-full rounded-2xl border px-4 py-3 text-right transition ${
+            picked === "custom"
+              ? "border-gold bg-gold/12 shadow-[0_0_0_3px_rgba(154,111,40,0.12)]"
+              : "border-mist bg-parchment hover:border-gold/50"
           }`}
         >
           <div className="text-sm text-ink-soft">מותאם אישית</div>
@@ -65,32 +74,26 @@ export function Onboarding() {
           <span className="ms-2 text-ink-soft">דקות</span>
         </button>
 
-        <div className="mt-5 rounded-2xl bg-parchment-deep/60 p-4 text-sm">
+        <div className="mt-5 rounded-2xl bg-parchment-deep/55 p-4 text-sm">
           <div className="flex justify-between">
             <span>לימוד טקסט</span>
             <strong>
-              {split.studyMinutes} דק׳ · {Math.round((split.studyMinutes / minutes) * 100)}%
+              {split.studyMinutes} דק׳ · {studyPct}%
             </strong>
           </div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-mist">
-            <div
-              className="h-full rounded-full bg-olive"
-              style={{ width: `${(split.studyMinutes / minutes) * 100}%` }}
-            />
+          <div className="mt-2 flex h-2.5 overflow-hidden rounded-full bg-mist">
+            <div className="bg-olive" style={{ width: `${studyPct}%` }} />
+            <div className="bg-gold" style={{ width: `${reviewPct}%` }} />
           </div>
-          <div className="mt-2 flex justify-between">
+          <div className="mt-2 flex justify-between text-ink-soft">
             <span>חזרה / שינון</span>
-            <strong>
-              {split.reviewMinutes} דק׳ · {Math.round((split.reviewMinutes / minutes) * 100)}%
+            <strong className="text-ink">
+              {split.reviewMinutes} דק׳ · {reviewPct}%
             </strong>
           </div>
         </div>
 
-        <button
-          type="button"
-          className="mt-6 w-full rounded-2xl bg-burgundy py-3 text-lg text-parchment"
-          onClick={() => completeOnboarding(minutes)}
-        >
+        <button type="button" className="btn btn-primary mt-6 w-full py-3.5 text-lg" onClick={() => completeOnboarding(minutes)}>
           התחילו את היום
         </button>
       </div>

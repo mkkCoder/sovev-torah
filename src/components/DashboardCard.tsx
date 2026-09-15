@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
+import { ChevronIcon } from "./Icons";
 
 export function DashboardCard({
   to,
@@ -7,24 +8,29 @@ export function DashboardCard({
   subtitle,
   icon,
   tone,
+  accent,
 }: {
   to: string;
   title: string;
   subtitle: string;
   icon: ReactNode;
   tone: string;
+  accent?: boolean;
 }) {
   return (
     <Link
       to={to}
-      className="lift paper flex min-h-[168px] flex-col justify-between rounded-3xl p-5"
+      className={`lift paper relative flex min-h-[168px] flex-col justify-between overflow-hidden rounded-[1.45rem] p-5 ${
+        accent ? "ring-1 ring-olive/25" : ""
+      }`}
     >
-      <div className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${tone}`}>
-        {icon}
+      <div className="flex items-start justify-between gap-3">
+        <div className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${tone}`}>{icon}</div>
+        <ChevronIcon className="mt-1 text-mist" size={18} />
       </div>
       <div>
-        <h2 className="font-display text-2xl text-ink">{title}</h2>
-        <p className="mt-1 text-sm leading-relaxed text-ink-soft">{subtitle}</p>
+        <h2 className="font-display text-[1.65rem] leading-tight text-ink">{title}</h2>
+        <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{subtitle}</p>
       </div>
     </Link>
   );

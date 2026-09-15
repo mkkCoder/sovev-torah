@@ -23,6 +23,7 @@ export function StatsPage() {
     n: state.cards.filter((c) => c.category === cat).length,
     due: state.cards.filter((c) => c.category === cat && isDue(c)).length,
   }));
+  const maxN = Math.max(1, ...byCat.map((r) => r.n));
 
   const retention =
     reviews === 0 ? null : Math.round(((excellent + ok) / reviews) * 100);
@@ -31,7 +32,7 @@ export function StatsPage() {
     <PageShell title="סטטיסטיקה" kicker="מצב הקניין והחזרה">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="כרטיסיות פתוחות" value={unlocked.length} />
-        <Stat label="ממתינות היום" value={due.length} />
+        <Stat label="ממתינות היום" value={due.length} accent />
         <Stat label="חדשות" value={news.length} />
         <Stat label="נעולות" value={locked.length} />
         <Stat label="פרקים שהושלמו" value={`${chaptersDone}/${state.chapters.length}`} />
@@ -43,29 +44,26 @@ export function StatsPage() {
         />
       </div>
 
-      <section className="paper mt-6 rounded-3xl p-5">
+      <section className="paper mt-6 rounded-[1.5rem] p-5">
         <h2 className="font-display text-xl">לפי קטגוריה</h2>
-        <div className="mt-3 space-y-3">
+        <div className="mt-4 space-y-4">
           {byCat.map((row) => (
             <div key={row.cat}>
               <div className="flex justify-between text-sm">
                 <span>{CATEGORY_LABEL[row.cat]}</span>
-                <span>
+                <span className="text-ink-soft">
                   {row.n} כרטיסיות · {row.due} לחזרה
                 </span>
               </div>
-              <div className="mt-1 h-2 rounded-full bg-mist">
-                <div
-                  className="h-full rounded-full bg-gold"
-                  style={{ width: `${Math.min(100, row.n * 4)}%` }}
-                />
+              <div className="progress mt-1.5">
+                <span style={{ width: `${Math.round((row.n / maxN) * 100)}%` }} />
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="paper mt-4 rounded-3xl p-5 text-sm text-ink-soft">
+      <section className="mt-4 rounded-[1.5rem] border border-mist/80 bg-parchment-deep/40 p-5 text-sm text-ink-soft">
         <p>
           דירוגי מצוין: {excellent} · סביר: {ok} · קושי/טעות: {hardish}
         </p>
@@ -80,14 +78,16 @@ export function StatsPage() {
 function Stat({
   label,
   value,
+  accent,
 }: {
   label: string;
   value: string | number;
+  accent?: boolean;
 }) {
   return (
-    <div className="paper rounded-3xl p-4">
+    <div className={`paper rounded-[1.35rem] p-4 ${accent ? "ring-1 ring-olive/20" : ""}`}>
       <div className="text-sm text-ink-soft">{label}</div>
-      <div className="font-display mt-1 text-3xl">{value}</div>
+      <div className="font-display mt-1 text-3xl tabular-nums">{value}</div>
     </div>
   );
 }

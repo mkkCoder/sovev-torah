@@ -1,9 +1,10 @@
 import { useState } from "react";
 import type { Flashcard, Rating } from "@shared/types";
-import { ARCHETYPE_LABEL, CATEGORY_LABEL, RATING_LABEL } from "@shared/types";
+import { ARCHETYPE_LABEL, CATEGORY_LABEL } from "@shared/types";
 import { getState, rateCard } from "../lib/store";
 import { PageShell } from "../components/PageShell";
 import { prioritizeBacklog } from "@shared/srs";
+import { RatingButtons } from "../components/ui";
 
 function pickQuiz(cards: Flashcard[], n = 8): Flashcard[] {
   const unlocked = cards.filter((c) => !c.locked && c.status !== "locked" && c.status !== "new");
@@ -34,6 +35,7 @@ export function QuizPage() {
   const [score, setScore] = useState({ good: 0, bad: 0 });
   const [done, setDone] = useState(false);
   const card = deck[i];
+  const pct = deck.length ? Math.round((i / deck.length) * 100) : 0;
 
   function grade(rating: Rating) {
     if (!card) return;
@@ -48,14 +50,14 @@ export function QuizPage() {
   return (
     <PageShell title="מבחן מותאם" kicker="ערבוב לפי פיגור, קושי וקטגוריה">
       {!card || done ? (
-        <div className="paper rounded-3xl p-8 text-center">
-          <p className="font-display text-2xl">סיום המבחן</p>
+        <div className="paper rounded-[1.5rem] px-6 py-12 text-center">
+          <p className="font-display text-3xl">סיום המבחן</p>
           <p className="mt-2 text-ink-soft">
-            ידעתי {score.good} · התקשיתי {score.bad} · מתוך {deck.length}
+            ידעתי {score.good} · התקשיתי {score.bad} · מתוך {deck.length || 0}
           </p>
           <button
             type="button"
-            className="mt-4 rounded-xl bg-burgundy px-4 py-2 text-parchment"
+            className="btn btn-primary mt-5"
             onClick={() => {
               setI(0);
               setScore({ good: 0, bad: 0 });
@@ -68,32 +70,31 @@ export function QuizPage() {
         </div>
       ) : (
         <div>
-          <div className="mb-3 text-sm text-ink-soft">
-            שאלה <span dir="ltr">{i + 1} / {deck.length}</span> · {CATEGORY_LABEL[card.category]} ·{" "}
-            {ARCHETYPE_LABEL[card.archetype]}
+          <div className="mb-2 flex items-center justify-between text-sm text-ink-soft">
+            <span>
+              {CATEGORY_LABEL[card.category]} · {ARCHETYPE_LABEL[card.archetype]}
+            </span>
+            <span dir="ltr" className="tabular-nums">
+              {i + 1} / {deck.length}
+            </span>
+          </div>
+          <div className="progress mb-4">
+            <span style={{ width: `${pct}%` }} />
           </div>
           <button
             type="button"
             onClick={() => setShow(true)}
-            className="paper w-full min-h-[180px] rounded-3xl p-6 text-right"
+            className="paper w-full min-h-[200px] rounded-[1.5rem] p-6 text-right"
           >
-            <div className="font-display text-2xl">{card.question}</div>
-            {show ? <div className="hebrew-body mt-4 border-t border-mist pt-3">{card.answer}</div> : (
-              <p className="mt-6 text-sm text-ink-soft">הקישו לתשובה</p>
+            <div className="font-display text-[1.55rem] leading-snug">{card.question}</div>
+            {show ? (
+              <div className="reveal hebrew-body mt-4 border-t border-mist pt-3">{card.answer}</div>
+            ) : (
+              <p className="mt-8 text-sm text-ink-soft">הקישו לתשובה</p>
             )}
           </button>
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {(["excellent", "ok", "hard", "wrong"] as Rating[]).map((r) => (
-              <button
-                key={r}
-                type="button"
-                disabled={!show}
-                onClick={() => grade(r)}
-                className="rounded-2xl border border-mist bg-card py-3 text-sm disabled:opacity-40"
-              >
-                {RATING_LABEL[r]}
-              </button>
-            ))}
+          <div className="mt-4">
+            <RatingButtons disabled={!show} onRate={grade} />
           </div>
         </div>
       )}

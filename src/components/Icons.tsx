@@ -102,3 +102,13 @@ export const UserIcon = (p: IconProps) => (
     <path d="M5 19c1.5-3.2 3.8-5 7-5s5.5 1.8 7 5" />
   </svg>
 );
+export const ChevronIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M15 5l-7 7 7 7" />
+  </svg>
+);
+export const CheckIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M20 7L10 17l-6-6" />
+  </svg>
+);
