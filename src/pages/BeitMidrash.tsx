@@ -96,8 +96,8 @@ export function BeitMidrashPage() {
           : "אין קישור Workers AI בסביבה זו. המחולל ההיוריסטי ייצר את כל ארבעת הארכיטיפים מתוך הטקסט."}
       </p>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <section className="paper rounded-[1.5rem] p-5">
+      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
+        <section className="paper min-w-0 rounded-[1.5rem] p-4 sm:p-5">
           <h2 className="font-display text-xl">מקור</h2>
           <textarea
             value={text}
@@ -145,7 +145,7 @@ export function BeitMidrashPage() {
           </button>
         </section>
 
-        <section className="paper rounded-[1.5rem] p-5">
+        <section className="paper min-w-0 rounded-[1.5rem] p-4 sm:p-5">
           <h2 className="font-display text-xl">סיווג — חובה לפני שמירה</h2>
           <p className="text-sm text-ink-soft">כל סט חייב קטגוריה + ספר / תג־משנה.</p>
           <label className="mt-3 block text-sm">קטגוריה</label>

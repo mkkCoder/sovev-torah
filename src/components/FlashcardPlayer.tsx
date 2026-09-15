@@ -72,7 +72,7 @@ export function FlashcardPlayer({
   return (
     <div>
       <div className="mb-3 flex items-center justify-between gap-3 text-sm text-ink-soft">
-        <span className="chip bg-card">
+        <span className="chip max-w-[75%] truncate bg-card">
           {CATEGORY_LABEL[card.category]} · {card.sefer}
         </span>
         <span dir="ltr" className="tabular-nums">
@@ -86,16 +86,19 @@ export function FlashcardPlayer({
       <button
         type="button"
         onClick={() => setFlipped((f) => !f)}
-        className="paper w-full min-h-[240px] rounded-[1.5rem] p-6 text-right transition hover:border-gold/40 sm:p-7"
+        className="paper w-full min-h-[min(240px,52dvh)] rounded-[1.5rem] p-4 text-right transition hover:border-gold/40 sm:min-h-[240px] sm:p-7"
       >
         <div className="chip bg-gold/12 text-gold">{ARCHETYPE_LABEL[card.archetype]}</div>
-        <div className="font-display mt-4 text-[1.55rem] leading-snug text-ink sm:text-[1.75rem]">
+        <div className="font-display mt-4 text-[1.3rem] leading-snug break-words text-ink sm:text-[1.75rem]">
           {card.question}
         </div>
         {flipped ? (
           <div className="reveal hebrew-body mt-6 border-t border-mist pt-4 text-ink">{card.answer}</div>
         ) : (
-          <div className="mt-10 text-sm text-ink-soft">הקישו לחשיפת התשובה · רווח / Enter</div>
+          <div className="mt-8 text-sm text-ink-soft">
+            הקישו לחשיפת התשובה
+            <span className="pointer-fine-only"> · רווח / Enter</span>
+          </div>
         )}
         <div className="mt-5 text-xs text-ink-soft">{card.subTag}</div>
       </button>
@@ -121,7 +124,10 @@ export function FlashcardPlayer({
             advance();
           }} />
           {!flipped ? (
-            <p className="mt-2 text-center text-xs text-ink-soft">חשפו את התשובה לפני הדירוג · מקשים 1–4 אחרי החשיפה</p>
+            <p className="mt-2 text-center text-xs text-ink-soft">
+              חשפו את התשובה לפני הדירוג
+              <span className="pointer-fine-only"> · מקשים 1–4 אחרי החשיפה</span>
+            </p>
           ) : null}
         </div>
       )}

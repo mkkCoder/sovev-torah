@@ -16,7 +16,7 @@ export default function App() {
   const state = useAppState();
 
   return (
-    <div dir="rtl" className="min-h-screen pb-[env(safe-area-inset-bottom)]">
+    <div dir="rtl" className="min-h-dvh pb-[max(0.75rem,env(safe-area-inset-bottom))]">
       <Header settings={state.settings} />
       <main>
         <Routes>

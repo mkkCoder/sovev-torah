@@ -14,7 +14,7 @@ export function SchedulePage() {
 
   return (
     <PageShell title="לו״ז ותכנון" kicker="שגרת השבוע וחלוקת הזמן">
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid min-w-0 gap-4 lg:grid-cols-2">
         <section className="paper rounded-[1.5rem] p-5">
           <h2 className="font-display text-xl">זמן יומי</h2>
           <label className="mt-3 block text-sm text-ink-soft">סה״כ דקות</label>
@@ -72,16 +72,16 @@ export function SchedulePage() {
               return (
                 <div
                   key={row.day}
-                  className={`grid grid-cols-2 items-center gap-2 rounded-2xl px-3 py-2.5 sm:grid-cols-12 ${
+          className={`grid items-center gap-2 rounded-2xl px-3 py-2.5 md:grid-cols-12 ${
                     isToday ? "bg-gold/12 ring-1 ring-gold/30" : "bg-parchment/70"
                   }`}
                 >
-                  <div className="col-span-2 flex items-center gap-2 text-sm font-semibold">
+                  <div className="flex items-center gap-2 text-sm font-semibold md:col-span-2">
                     {DAY_NAMES[row.day]}
                     {isToday ? <span className="chip bg-gold/20 text-[11px]">היום</span> : null}
                   </div>
                   <select
-                    className="field col-span-2 py-1.5 text-sm sm:col-span-3"
+                    className="field min-h-11 py-1.5 text-base md:col-span-3 md:text-sm"
                     value={row.category}
                     onChange={(e) => {
                       const category = e.target.value as Category;
@@ -95,7 +95,7 @@ export function SchedulePage() {
                     <option value="halacha">{CATEGORY_LABEL.halacha}</option>
                   </select>
                   <select
-                    className="field col-span-2 py-1.5 text-sm sm:col-span-4"
+                    className="field min-h-11 py-1.5 text-base md:col-span-4 md:text-sm"
                     value={row.seferId}
                     onChange={(e) => {
                       const seferId = e.target.value;
@@ -121,7 +121,7 @@ export function SchedulePage() {
                     ))}
                   </select>
                   <input
-                    className="field col-span-2 py-1.5 text-sm sm:col-span-3"
+                    className="field min-h-11 py-1.5 text-base md:col-span-3 md:text-sm"
                     value={row.note}
                     onChange={(e) =>
                       updateWeekly(
@@ -160,8 +160,8 @@ function BookProgress() {
           const pct = Math.round((done / chs.length) * 100);
           return (
             <div key={book.id}>
-              <div className="flex justify-between text-sm">
-                <span>
+              <div className="flex flex-wrap justify-between gap-2 text-sm">
+                <span className="min-w-0">
                   {book.title} · {book.author}
                 </span>
                 <span className="tabular-nums text-ink-soft">

@@ -84,9 +84,9 @@ export function QuizPage() {
           <button
             type="button"
             onClick={() => setShow(true)}
-            className="paper w-full min-h-[200px] rounded-[1.5rem] p-6 text-right"
+            className="paper w-full min-h-[min(200px,50dvh)] rounded-[1.5rem] p-4 text-right sm:p-6"
           >
-            <div className="font-display text-[1.55rem] leading-snug">{card.question}</div>
+            <div className="font-display text-[1.3rem] leading-snug break-words sm:text-[1.55rem]">{card.question}</div>
             {show ? (
               <div className="reveal hebrew-body mt-4 border-t border-mist pt-3">{card.answer}</div>
             ) : (

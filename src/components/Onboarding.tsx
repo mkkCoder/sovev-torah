@@ -14,18 +14,18 @@ export function Onboarding() {
   const reviewPct = 100 - studyPct;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/45 p-4 backdrop-blur-[6px] sm:items-center">
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-ink/45 p-3 backdrop-blur-[6px] sm:items-center sm:p-4">
       <div
         role="dialog"
         aria-modal="true"
         aria-labelledby="onboard-title"
-        className="paper w-full max-w-lg rounded-[1.7rem] p-6 sm:p-8"
+        className="paper max-h-[min(92dvh,100%)] w-full max-w-lg overflow-y-auto rounded-[1.7rem] p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-8"
       >
         <div className="mb-4 flex items-center gap-3">
           <LogoMark className="h-12 w-12" />
           <p className="text-sm text-gold">ברוכים הבאים · סובב תורה 2.1</p>
         </div>
-        <h1 id="onboard-title" className="font-display text-3xl leading-tight text-ink sm:text-[2.1rem]">
+        <h1 id="onboard-title" className="font-display text-[1.7rem] leading-tight text-ink sm:text-[2.1rem]">
           מהו זמן הלימוד היומי שלך?
         </h1>
         <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
@@ -69,7 +69,7 @@ export function Onboarding() {
               setPicked("custom");
               setCustom(e.target.value);
             }}
-            className="mt-1 w-24 border-b border-gold bg-transparent text-xl outline-none"
+            className="mt-1 w-24 border-b border-gold bg-transparent text-xl outline-none max-[380px]:text-base"
           />
           <span className="ms-2 text-ink-soft">דקות</span>
         </button>

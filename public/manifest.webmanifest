@@ -1,0 +1,20 @@
+{
+  "name": "סובב תורה",
+  "short_name": "סובב תורה",
+  "description": "לימוד תורה וחזרה במרווחים",
+  "dir": "rtl",
+  "lang": "he",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F3EAD8",
+  "theme_color": "#F3EAD8",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

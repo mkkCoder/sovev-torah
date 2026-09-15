@@ -30,12 +30,13 @@ export function RatingButtons({
           type="button"
           disabled={disabled}
           onClick={() => onRate(r)}
-          className={`btn rounded-2xl border py-3 text-sm ${RATING_CLASS[r]} disabled:opacity-40`}
+          className={`btn min-h-12 rounded-2xl border py-3 text-sm ${RATING_CLASS[r]} disabled:opacity-40`}
         >
-          <span className="flex flex-col">
+          <span className="flex flex-col px-0.5">
             <span>{RATING_LABEL[r]}</span>
             <span className="mt-0.5 text-[11px] font-normal opacity-80">
-              {i + 1} · {RATING_HINT[r]}
+              <span className="tabular-nums">{i + 1}</span>
+              <span className="hidden min-[400px]:inline"> · {RATING_HINT[r]}</span>
             </span>
           </span>
         </button>
@@ -62,7 +63,7 @@ export function Switch({
       aria-checked={checked}
       aria-label={label}
       onClick={() => onChange(!checked)}
-      className="flex items-center gap-2 rounded-full border border-mist bg-card px-2.5 py-1.5 text-xs text-ink-soft"
+      className="flex min-h-11 items-center gap-2 rounded-full border border-mist bg-card px-2.5 py-1.5 text-xs text-ink-soft"
     >
       {showLabel ? <span className="hidden sm:inline">{label}</span> : null}
       <span className="toggle" data-on={checked ? "true" : "false"} />

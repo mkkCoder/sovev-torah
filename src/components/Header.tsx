@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { FormEvent } from "react";
 import { LogoMark, SearchIcon } from "./Icons";
 import { patchSettings } from "../lib/store";
 import type { Settings } from "@shared/types";
@@ -11,11 +12,18 @@ export function Header({ settings }: { settings: Settings }) {
   const q = params.get("q") ?? "";
   const initial = settings.profileName.trim().slice(0, 1) || "ל";
 
+  function onSearch(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    const next = String(fd.get("q") ?? "").trim();
+    navigate(next ? `/search?q=${encodeURIComponent(next)}` : "/");
+  }
+
   return (
-    <header className="sticky top-0 z-40 border-b border-mist/70 bg-parchment/85 shadow-[0_8px_24px_-20px_rgba(36,28,18,0.55)] backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-2.5 sm:gap-4 sm:py-3">
+    <header className="sticky top-0 z-40 border-b border-mist/70 bg-parchment/90 pt-[env(safe-area-inset-top)] shadow-[0_8px_24px_-20px_rgba(36,28,18,0.55)] backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-3 py-2 sm:flex-nowrap sm:gap-4 sm:px-4 sm:py-3">
         <Link to="/" className="flex shrink-0 items-center gap-2 rounded-xl pe-1" aria-label="סובב תורה — דף הבית">
-          <LogoMark className="h-10 w-10 drop-shadow-sm" />
+          <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
           <div className="hidden leading-tight sm:block">
             <div className="font-display text-[1.35rem] font-semibold text-ink">סובב תורה</div>
             <div className="text-[11px] tracking-wide text-ink-soft">לימוד · חזרה · נצח</div>
@@ -25,13 +33,8 @@ export function Header({ settings }: { settings: Settings }) {
         <form
           role="search"
           action="/search"
-          className="relative min-w-0 flex-1"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const fd = new FormData(e.currentTarget);
-            const next = String(fd.get("q") ?? "").trim();
-            navigate(next ? `/search?q=${encodeURIComponent(next)}` : "/");
-          }}
+          className="relative order-last min-w-0 w-full basis-full sm:order-none sm:flex-1 sm:basis-auto"
+          onSubmit={onSearch}
         >
           <SearchIcon className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-ink-soft" size={18} />
           <input
@@ -39,12 +42,15 @@ export function Header({ settings }: { settings: Settings }) {
             defaultValue={q}
             key={q}
             placeholder="חפש כרטיסייה, מושג או ספר..."
-            className="field w-full rounded-full py-2.5 pr-11 pl-4 text-[15px] shadow-none placeholder:text-ink-soft/65"
+            className="field min-h-11 w-full rounded-full py-2.5 pr-11 pl-4 text-base shadow-none placeholder:text-ink-soft/65"
             aria-label="חיפוש כרטיסייה, מושג או ספר"
+            enterKeyHint="search"
+            autoCapitalize="off"
+            autoCorrect="off"
           />
         </form>
 
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+        <div className="ms-auto flex shrink-0 items-center gap-1.5 sm:ms-0 sm:gap-2">
           <Switch
             label="מנהל"
             checked={settings.isAdmin}
@@ -52,7 +58,7 @@ export function Header({ settings }: { settings: Settings }) {
           />
           <Link
             to="/profile"
-            className="flex items-center gap-2 rounded-full border border-mist bg-card py-1 ps-1 pe-2.5 text-sm text-ink transition hover:border-gold"
+            className="flex min-h-11 items-center gap-2 rounded-full border border-mist bg-card py-1 ps-1 pe-1.5 text-sm text-ink transition hover:border-gold sm:pe-2.5"
             aria-label="פרופיל"
           >
             <span className="grid h-8 w-8 place-items-center rounded-full bg-burgundy text-sm font-semibold text-parchment">

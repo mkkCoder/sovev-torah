@@ -14,11 +14,11 @@ export function DailyStudyPanel() {
 
   return (
     <section className="paper overflow-hidden rounded-[1.6rem] border-s-4 border-gold">
-      <div className="p-5 sm:p-6">
+      <div className="p-4 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-sm font-medium text-gold">{assignment.note}</p>
-            <h2 className="font-display mt-0.5 text-2xl leading-tight sm:text-[1.85rem]">
+            <h2 className="font-display mt-0.5 text-[1.45rem] leading-tight sm:text-[1.85rem]">
               {book.title} · פרק {current.number}
             </h2>
             <p className="mt-1 text-ink-soft">{current.title}</p>

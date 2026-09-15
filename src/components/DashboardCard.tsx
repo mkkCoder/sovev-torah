@@ -20,7 +20,7 @@ export function DashboardCard({
   return (
     <Link
       to={to}
-      className={`lift paper relative flex min-h-[168px] flex-col justify-between overflow-hidden rounded-[1.45rem] p-5 ${
+      className={`lift paper relative flex min-h-[148px] flex-col justify-between overflow-hidden rounded-[1.45rem] p-4 sm:min-h-[168px] sm:p-5 ${
         accent ? "ring-1 ring-olive/25" : ""
       }`}
     >
@@ -29,7 +29,7 @@ export function DashboardCard({
         <ChevronIcon className="mt-1 text-ink-soft/45" size={18} />
       </div>
       <div>
-        <h2 className="font-display text-[1.65rem] leading-tight text-ink">{title}</h2>
+        <h2 className="font-display text-[1.45rem] leading-tight text-ink sm:text-[1.65rem]">{title}</h2>
         <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{subtitle}</p>
       </div>
     </Link>
