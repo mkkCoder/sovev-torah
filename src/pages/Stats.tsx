@@ -9,10 +9,13 @@ export function StatsPage() {
   const due = state.cards.filter((c) => isDue(c));
   const news = state.cards.filter(isNewUnlocked);
   const locked = state.cards.filter((c) => c.locked);
-  const reviews = state.reviewsLog.length;
-  const excellent = state.reviewsLog.filter((r) => r.rating === "excellent").length;
-  const ok = state.reviewsLog.filter((r) => r.rating === "ok").length;
-  const hardish = state.reviewsLog.filter((r) => r.rating === "hard" || r.rating === "wrong").length;
+  const qualityLog = state.reviewsLog.filter(
+    (r) => r.rating === "excellent" || r.rating === "ok" || r.rating === "hard" || r.rating === "wrong",
+  );
+  const reviews = qualityLog.length;
+  const excellent = qualityLog.filter((r) => r.rating === "excellent").length;
+  const ok = qualityLog.filter((r) => r.rating === "ok").length;
+  const hardish = qualityLog.filter((r) => r.rating === "hard" || r.rating === "wrong").length;
   const chaptersDone = state.chapters.filter((c) => c.studyCompleted).length;
 
   const byCat = (["emuna", "halacha", "shas"] as const).map((cat) => ({

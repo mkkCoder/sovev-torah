@@ -55,7 +55,7 @@ export function FlashcardPlayer({
   return (
     <div>
       <div className="mb-3 flex items-center justify-between text-sm text-ink-soft">
-        <span>
+        <span dir="ltr">
           {Math.min(index + 1, cards.length)} / {cards.length}
         </span>
         <span>

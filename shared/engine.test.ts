@@ -47,6 +47,13 @@ describe("SRS and locks", () => {
     expect(unlocked.filter((c) => c.chapterId === "ch-hilchot-talmud-torah-1").every((c) => !c.locked && c.status === "new")).toBe(true);
   });
 
+  it("seeds at least one card per chapter", () => {
+    const seed = createSeedState(new Date("2026-09-15T12:00:00"));
+    for (const ch of seed.chapters) {
+      expect(seed.cards.some((c) => c.chapterId === ch.id), ch.id).toBe(true);
+    }
+  });
+
   it("first review is 1/2/3 days", () => {
     const today = todayIso(new Date("2026-09-15"));
     const card = {

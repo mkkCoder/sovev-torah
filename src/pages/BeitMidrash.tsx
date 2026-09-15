@@ -92,7 +92,7 @@ export function BeitMidrashPage() {
     <PageShell title="בית מדרש AI" kicker="הוספת חומר · ארבעה ארכיטיפים · בלי API בתשלום">
       <p className="mb-4 text-sm text-ink-soft">
         {ai?.ai
-          ? "Workers AI מחובר — ניצור כרטיסיות במודל החינמי, ועם כשל נעבור למחולל ההיוריסטי."
+          ? "זוהה binding של Workers AI. היצירה תנסה את המודל החינמי, ועם כשל תעבור למחולל ההיוריסטי."
           : "אין קישור Workers AI בסביבה זו. המחולל ההיוריסטי ייצר את כל ארבעת הארכיטיפים מתוך הטקסט."}
       </p>
 

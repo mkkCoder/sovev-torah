@@ -69,7 +69,7 @@ export function QuizPage() {
       ) : (
         <div>
           <div className="mb-3 text-sm text-ink-soft">
-            שאלה {i + 1} / {deck.length} · {CATEGORY_LABEL[card.category]} ·{" "}
+            שאלה <span dir="ltr">{i + 1} / {deck.length}</span> · {CATEGORY_LABEL[card.category]} ·{" "}
             {ARCHETYPE_LABEL[card.archetype]}
           </div>
           <button

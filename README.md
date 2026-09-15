@@ -17,6 +17,8 @@ npm run dev
 
 Open the printed local URL (Vite + Cloudflare plugin). The app is usable immediately with demo seed data (מהר״ל — נצח ישראל, ברכות, הלכות תלמוד תורה).
 
+Local `npm run dev` runs **without** a Cloudflare account: the Vite plugin uses `remoteBindings: false`, so Workers AI is not proxied to the cloud and the heuristic generator is used. After `wrangler login`, you can switch to `cloudflare({ remoteBindings: true })` in `vite.config.ts` if you want live Workers AI in development.
+
 ```bash
 npm test          # SRS, 80/20 split, generator archetypes, lock/unlock
 npm run build     # client + Worker → dist/

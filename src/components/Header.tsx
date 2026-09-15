@@ -1,4 +1,4 @@
-import { Form, Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LogoMark, SearchIcon, UserIcon } from "./Icons";
 import { patchSettings } from "../lib/store";
 import type { Settings } from "@shared/types";
@@ -20,7 +20,7 @@ export function Header({ settings }: { settings: Settings }) {
           </div>
         </Link>
 
-        <Form
+        <form
           role="search"
           action="/search"
           className="relative min-w-0 flex-1"
@@ -40,7 +40,7 @@ export function Header({ settings }: { settings: Settings }) {
             className="w-full rounded-full border border-mist bg-card/90 py-2.5 pr-10 pl-4 text-[15px] text-ink shadow-inner outline-none placeholder:text-ink-soft/70 focus:border-gold"
             aria-label="חיפוש כרטיסייה, מושג או ספר"
           />
-        </Form>
+        </form>
 
         <div className="flex shrink-0 items-center gap-2">
           <label className="flex cursor-pointer items-center gap-1.5 rounded-full border border-mist bg-card px-2.5 py-1 text-xs text-ink-soft">

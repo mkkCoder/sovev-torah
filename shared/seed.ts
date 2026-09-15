@@ -1,12 +1,6 @@
 import { splitDailyTime } from "./allocation";
 import { addDaysIso, todayIso } from "./dates";
-import type {
-  AppState,
-  Book,
-  Chapter,
-  Flashcard,
-  WeeklyAssignment,
-} from "./types";
+import { CATEGORY_LABEL, type AppState, type Book, type Chapter, type Flashcard, type WeeklyAssignment } from "./types";
 
 function id(prefix: string, n: string | number): string {
   return `${prefix}-${n}`;
@@ -587,6 +581,29 @@ export function createSeedState(now = new Date()): AppState {
         source: "chapter",
         locked: true,
         status: "locked",
+        intervalDays: 0,
+        nextReview: null,
+      }),
+    );
+  }
+
+  for (const ch of chapters) {
+    if (cards.some((c) => c.chapterId === ch.id)) continue;
+    const book = books.find((b) => b.id === ch.bookId);
+    cards.push(
+      card({
+        id: `c-auto-${ch.id}`,
+        question: `שאלה עיונית ל«${ch.title}»: מהו היסוד שמארגן את הפרק, וכיצד הוא מתקשר לקטגוריית ${book ? CATEGORY_LABEL[book.category] : "הלימוד"}?`,
+        answer: ch.text.slice(0, 320),
+        archetype: "iyun",
+        category: book?.category ?? "emuna",
+        sefer: book?.title ?? "",
+        subTag: `פרק ${ch.number}`,
+        chapterId: ch.id,
+        bookId: ch.bookId,
+        source: "chapter",
+        locked: !ch.studyCompleted,
+        status: ch.studyCompleted ? "new" : "locked",
         intervalDays: 0,
         nextReview: null,
       }),
